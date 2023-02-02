@@ -57,9 +57,13 @@ open neovim and run `:PackerInstall` command
 ### Common Key Bindings
 
 
-<Leader\> means you have to either hit `Space` bar or `,`
-<C-w-s\>  means you have to hit Ctrl followed by w and s
-<Leader\>sf  means you have to hit the Leader key(Space | ,) followed by s and f
+**<Leader\>** means you have to either hit `Space` bar or `,`
+
+**<C-w-s\>** means you have to hit Ctrl followed by w and s
+
+**<Leader\>sf**  means you have to hit the Leader key(Space | ,) followed by s and f
+
+<br>
 
 
 | Key Binding | Description 		   				|  Plugin 		       |
@@ -77,5 +81,4 @@ open neovim and run `:PackerInstall` command
 | <Leader\>v        | Toggle Nvim Tree			      	              |     Nvim Tree	               |
 | <C\>v             | Open file in vertical split		      	      |     Nvim Tree	               |
 | <C\>x             | Open file in horizontal split		      	      |     Nvim Tree	    |
-
 
