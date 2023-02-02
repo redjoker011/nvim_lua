@@ -52,7 +52,7 @@ open neovim and run `:PackerInstall` command
 ### Leader Key 
 
 - `,`
-- '<Space>'
+- `<Space\>`
 
 ### Common Key Bindings
 
