@@ -8,7 +8,6 @@ function M.localsetup()
   require("nvim-tree").setup({
     sort_by = "case_sensitive",
     open_on_setup = true,
-    open_on_setup_file = true,
     view = {
       width = 30,
       side = 'right',
