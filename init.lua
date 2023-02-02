@@ -449,7 +449,33 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
-require('plugins/nvim-tree').localsetup()
+-- require('plugins/nvim-tree').localsetup()
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 30,
+    side = 'right',
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+        { key = "-", action = "cd" },
+      },
+    },
+  },
+  actions = {
+    open_file = {
+      window_picker = {
+        enable = false
+      }
+    }
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
