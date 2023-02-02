@@ -1,5 +1,7 @@
 # Neovim Config made with Lua
 
+![Preview](./doc_images/preview.png)
+
 ## Pre-requisites
 
 - Neovim version > [v0.8.2](https://github.com/neovim/neovim/wiki/Installing-Neovim)
