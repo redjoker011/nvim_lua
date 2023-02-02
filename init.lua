@@ -135,7 +135,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ','
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = '<Space>'
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -449,34 +449,11 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- require('plugins/nvim-tree').localsetup()
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    width = 30,
-    side = 'right',
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-        { key = "-", action = "cd" },
-      },
-    },
-  },
-  actions = {
-    open_file = {
-      window_picker = {
-        enable = false
-      }
-    }
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
+require('plugins.nvim-tree').localsetup()
 vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
+
+-- Use relative numbering
+vim.wo.relativenumber = true
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
