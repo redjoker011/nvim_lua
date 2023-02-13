@@ -355,7 +355,7 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
   solargraph = {},
-  csharp_ls = {},
+  omnisharp_mono = {},
 
   sumneko_lua = {
     Lua = {
@@ -451,6 +451,10 @@ vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
 
 -- Use relative numbering
 vim.wo.relativenumber = true
+
+-- Text Width and Color column
+vim.o.textwidth = 80
+vim.o.colorcolumn = "+1"
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
