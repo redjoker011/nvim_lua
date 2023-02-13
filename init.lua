@@ -456,5 +456,26 @@ vim.wo.relativenumber = true
 vim.o.textwidth = 80
 vim.o.colorcolumn = "+1"
 
+-- Number Width and Numbering
+vim.wo.number = true
+vim.wo.numberwidth = 5
+
+-- Enable mouse in command line mode
+vim.o.mouse = "c"
+
+-- Enable spelling check
+vim.o.spell = true
+
+vim.o.foldenable = true
+vim.o.foldmethod = "syntax"
+vim.o.foldlevel = 1
+
+-- Tabs for Ruby
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.shiftround = true
+vim.o.smartindent = true
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
