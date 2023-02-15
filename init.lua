@@ -137,11 +137,11 @@ vim.o.completeopt = 'menuone,noselect'
 -- See `:help mapleader`
 --  NOTE: Must happenbefore plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ','
-vim.g.maplocalleader = '<Space>'
+vim.g.maplocalleader = ','
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+-- vim.keymap.set({ 'n', 'v' }, ',', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -355,7 +355,6 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
   solargraph = {},
-  omnisharp_mono = {},
 
   sumneko_lua = {
     Lua = {
