@@ -102,6 +102,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Global Config --
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -132,6 +134,35 @@ vim.cmd [[colorscheme onedark]]
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- Use relative numbering
+vim.wo.relativenumber = true
+
+-- Text Width and Color column
+vim.o.textwidth = 80
+vim.o.colorcolumn = "+1"
+
+-- Number Width and Numbering
+vim.wo.number = true
+vim.wo.numberwidth = 5
+
+-- Enable mouse in command line mode
+vim.o.mouse = "c"
+
+-- Enable spelling check
+vim.o.spell = true
+
+vim.o.foldenable = true
+vim.o.foldmethod = "syntax"
+vim.o.foldlevel = 1
+
+-- Tabs for Ruby
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.shiftround = true
+vim.o.smartindent = true
+vim.o.matchtime = 3
+
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -139,13 +170,17 @@ vim.o.completeopt = 'menuone,noselect'
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
+-- Global Mappings
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 -- vim.keymap.set({ 'n', 'v' }, ',', '<Nop>', { silent = true })
 
+
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -157,6 +192,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- Map jk to escape
+vim.keymap.set('i', 'jk', '<esc>')
+
+-- Enforce using j and k when moving
+vim.keymap.set('n', '<Up>', function () print 'Use k' end)
+vim.keymap.set('n', '<Down>', function () print 'Use j' end)
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
@@ -448,34 +490,6 @@ vim.opt.termguicolors = true
 require('plugins.nvim-tree').localsetup()
 vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
 
--- Use relative numbering
-vim.wo.relativenumber = true
-
--- Text Width and Color column
-vim.o.textwidth = 80
-vim.o.colorcolumn = "+1"
-
--- Number Width and Numbering
-vim.wo.number = true
-vim.wo.numberwidth = 5
-
--- Enable mouse in command line mode
-vim.o.mouse = "c"
-
--- Enable spelling check
-vim.o.spell = true
-
-vim.o.foldenable = true
-vim.o.foldmethod = "syntax"
-vim.o.foldlevel = 1
-
--- Tabs for Ruby
-vim.o.expandtab = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.shiftround = true
-vim.o.smartindent = true
-vim.o.matchtime = 3
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
