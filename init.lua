@@ -171,6 +171,7 @@ vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
 -- Global Mappings
+--
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -199,6 +200,15 @@ vim.keymap.set('i', 'jk', '<esc>')
 -- Enforce using j and k when moving
 vim.keymap.set('n', '<Up>', function () print 'Use k' end)
 vim.keymap.set('n', '<Down>', function () print 'Use j' end)
+
+-- Utility Mappings c/o Vim the Hardway
+--
+
+-- Open Vim Config in vspit
+vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<cr>')
+-- Reload Vim Config from source
+vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<cr>')
+
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
