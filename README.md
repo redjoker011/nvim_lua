@@ -57,7 +57,9 @@ open neovim and run `:PackerInstall` command
 ### Common Key Bindings
 
 
-**<Leader\>** means you have to either hit `Space` bar or `,`
+**<Leader\>** means you have to either hit `,` bar or `Space`
+ - global leader - `,`
+ - local leader - `<Space>`
 
 **<C-w-s\>** means you have to hit Ctrl followed by w and s
 
@@ -72,12 +74,19 @@ open neovim and run `:PackerInstall` command
 | <C-w-v\>          | Open new window in vertical mode        		      |              		       |
 | I                 | Insert Mode        				      |              		       |
 | Esc	            | Exit Insert Mode        				      |                                |
+| <Leader\>ev	    | Edit $VIMRC        				      |                                 |
+| <Leader\>sv	    | Reload $VIMRC        				      |                                 |
 | <Leader\>?        | Find recently opened files         		      |     Vim Telescope              |
 | <Leader\><Space\> | View existing buffers              		      |     Vim Telescope              |
 | <Leader\>sf       | Search File in directory           		      |     Vim Telescope              |
 | <Leader\>sh       | Search Help tags                   		      |     Vim Telescope              |
 | <Leader\>sg       | Search for word or regrexp using Grep in directory      |     Vim Telescope              |
 | <Leader\>sd       | Search Diagnostics				      |     Vim Telescope              |
+| gd                | Go To Definition		      	          |     LSP	                        |
+| gr                | Go To References		      	          |     LSP	                        |
+| gI                | Go To Implementation		      	      |     LSP	                        |
+| <Leader\>D        | Type Definition		      	          |     LSP	                        |
+| K                 | Hover Documentation		      	      |     LSP	                        |
 | <Leader\>v        | Toggle Nvim Tree			      	              |     Nvim Tree	               |
 | <C\>v             | Open file in vertical split		      	      |     Nvim Tree	               |
 | <C\>x             | Open file in horizontal split		      	      |     Nvim Tree	    |
