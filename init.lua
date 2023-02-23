@@ -200,7 +200,9 @@ vim.keymap.set('i', '<esc>', '<nop>')
 
 -- Enforce using j and k when moving
 vim.keymap.set('n', '<Up>', function () print 'Use k' end)
+vim.keymap.set('n', '<Left>', function () print 'Use h' end)
 vim.keymap.set('n', '<Down>', function () print 'Use j' end)
+vim.keymap.set('n', '<Right>', function () print 'Use l' end)
 
 -- Utility Mappings c/o Vim the Hardway
 --
