@@ -410,6 +410,7 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
   solargraph = {},
+  csharp_ls = {},
 
   sumneko_lua = {
     Lua = {
