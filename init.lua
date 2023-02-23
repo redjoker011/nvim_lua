@@ -196,6 +196,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Map jk to escape
 vim.keymap.set('i', 'jk', '<esc>')
+vim.keymap.set('i', '<esc>', '<nop>')
 
 -- Enforce using j and k when moving
 vim.keymap.set('n', '<Up>', function () print 'Use k' end)
