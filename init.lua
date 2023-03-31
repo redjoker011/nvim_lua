@@ -151,9 +151,11 @@ vim.o.mouse = "c"
 -- Enable spelling check
 vim.o.spell = true
 
-vim.o.foldenable = true
-vim.o.foldmethod = "syntax"
+-- Enable folding
 vim.o.foldlevel = 1
+vim.o.foldenable = true
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Tabs for Ruby
 vim.o.expandtab = true
