@@ -66,6 +66,7 @@ require('packer').startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
 
+  use 'lewis6991/gitsigns.nvim'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -506,6 +507,6 @@ vim.opt.termguicolors = true
 require('plugins.nvim-tree').localsetup()
 vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
 
-
+require('plugins.git-signs').localsetup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
