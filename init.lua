@@ -67,6 +67,7 @@ require('packer').startup(function(use)
   use 'kyazdani42/nvim-tree.lua'
 
   use 'lewis6991/gitsigns.nvim'
+  use 'wakatime/vim-wakatime'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
