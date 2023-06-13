@@ -284,10 +284,8 @@ require('nvim-treesitter.configs').setup {
     'c',
     'go',
     'lua',
-    'help',
     'vim',
     'ruby',
-    'c_sharp',
     'yaml',
     'html',
     'json',
@@ -409,19 +407,14 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
   solargraph = {},
-  csharp_ls = {},
+  -- csharp_ls = {},
 
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
+  lua_ls = {},
 }
 
 -- Setup neovim lua configuration
