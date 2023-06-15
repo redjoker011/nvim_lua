@@ -5,6 +5,7 @@
 ## Pre-requisites
 
 - Neovim version > [v0.8.2](https://github.com/neovim/neovim/wiki/Installing-Neovim)
+- [Rip Grep](https://github.com/BurntSushi/ripgrep)
 
 ## Installation
 
