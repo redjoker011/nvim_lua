@@ -44,17 +44,17 @@ require('packer').startup(function(use)
   }
 
   -- Git related plugins
-  use 'tpope/vim-fugitive' -- Vim plugin for Git
-  use 'tpope/vim-rhubarb' -- Vim plugin for Hub. Paired with vim-fugitive
-  use 'tpope/vim-surround' -- Plugin for adding Brackets, Parenthesis and many more on existing word
-  use 'jiangmiao/auto-pairs' -- Insert Auto Pairs(Bracket, Parenthesis, Quote)
-  use 'lewis6991/gitsigns.nvim' -- Plugin for identifying added/deleted/modified lines
+  use 'tpope/vim-fugitive'                  -- Vim plugin for Git
+  use 'tpope/vim-rhubarb'                   -- Vim plugin for Hub. Paired with vim-fugitive
+  use 'tpope/vim-surround'                  -- Plugin for adding Brackets, Parenthesis and many more on existing word
+  use 'jiangmiao/auto-pairs'                -- Insert Auto Pairs(Bracket, Parenthesis, Quote)
+  use 'lewis6991/gitsigns.nvim'             -- Plugin for identifying added/deleted/modified lines
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
+  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
+  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -66,7 +66,6 @@ require('packer').startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
 
-  use 'lewis6991/gitsigns.nvim'
   use 'wakatime/vim-wakatime'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
@@ -140,7 +139,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.wo.relativenumber = true
 
 -- Text Width and Color column
-vim.o.textwidth = 80
+vim.o.textwidth = 120
 vim.o.colorcolumn = "+1"
 
 -- Number Width and Numbering
@@ -203,10 +202,10 @@ vim.keymap.set('i', 'jk', '<esc>')
 vim.keymap.set('i', '<esc>', '<nop>')
 
 -- Enforce using j and k when moving
-vim.keymap.set('n', '<Up>', function () print 'Use k' end)
-vim.keymap.set('n', '<Left>', function () print 'Use h' end)
-vim.keymap.set('n', '<Down>', function () print 'Use j' end)
-vim.keymap.set('n', '<Right>', function () print 'Use l' end)
+vim.keymap.set('n', '<Up>', function() print 'Use k' end)
+vim.keymap.set('n', '<Left>', function() print 'Use h' end)
+vim.keymap.set('n', '<Down>', function() print 'Use j' end)
+vim.keymap.set('n', '<Right>', function() print 'Use l' end)
 
 -- Utility Mappings c/o Vim the Hardway
 --
@@ -289,7 +288,7 @@ require('nvim-treesitter.configs').setup {
     'yaml',
     'html',
     'json',
-    'sql'
+    'sql',
   },
 
   highlight = { enable = true },
@@ -394,10 +393,8 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  -- Format buffer on save using LSP
+  vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 end
 
 -- Enable the following language servers
@@ -502,5 +499,9 @@ require('plugins.nvim-tree').localsetup()
 vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
 
 require('plugins.git-signs').localsetup()
+
+-- LSP
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.lsp.set_log_level("debug")
