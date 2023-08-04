@@ -44,13 +44,14 @@ require('packer').startup(function(use)
   }
 
   -- Git related plugins
-  use 'tpope/vim-fugitive'                  -- Vim plugin for Git
-  use 'tpope/vim-rhubarb'                   -- Vim plugin for Hub. Paired with vim-fugitive
-  use 'tpope/vim-surround'                  -- Plugin for adding Brackets, Parenthesis and many more on existing word
-  use 'jiangmiao/auto-pairs'                -- Insert Auto Pairs(Bracket, Parenthesis, Quote)
-  use 'lewis6991/gitsigns.nvim'             -- Plugin for identifying added/deleted/modified lines
+  use 'tpope/vim-fugitive'      -- Vim plugin for Git
+  use 'tpope/vim-rhubarb'       -- Vim plugin for Hub. Paired with vim-fugitive
+  use 'tpope/vim-surround'      -- Plugin for adding Brackets, Parenthesis and many more on existing word
+  use 'jiangmiao/auto-pairs'    -- Insert Auto Pairs(Bracket, Parenthesis, Quote)
+  use 'lewis6991/gitsigns.nvim' -- Plugin for identifying added/deleted/modified lines
 
-  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
+  -- use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
+  use 'maxmx03/dracula.nvim'
   use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
@@ -130,7 +131,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme dracula]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
