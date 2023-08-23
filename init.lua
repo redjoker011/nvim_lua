@@ -163,6 +163,7 @@ vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.expandtab = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
 vim.o.shiftround = true
 vim.o.smartindent = true
 vim.o.matchtime = 3
@@ -290,6 +291,9 @@ require('nvim-treesitter.configs').setup {
     'html',
     'json',
     'sql',
+    'javascript',
+    'css',
+    'scss'
   },
 
   highlight = { enable = true },
@@ -410,8 +414,8 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
   solargraph = {},
+  tsserver = {},
   -- csharp_ls = {},
-
   lua_ls = {},
 }
 
@@ -430,6 +434,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = true
 }
 
 mason_lspconfig.setup_handlers {
