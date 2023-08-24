@@ -179,6 +179,14 @@ vim.o.matchtime = 3
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
+-- Nvim Tree Config
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
 -- Global Mappings
 --
 
@@ -186,11 +194,15 @@ vim.g.maplocalleader = ','
 -- See `:help vim.keymap.set()`
 -- vim.keymap.set({ 'n', 'v' }, ',', '<Nop>', { silent = true })
 
-
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -221,10 +233,8 @@ vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<cr>')
 -- Reload Vim Config from source
 vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<cr>')
 
-
--- Set lualine as statusline
--- See `:help lualine.txt`
-require('plugins.lualine-evil').setupevilline()
+-- [[Plugin Setup]]
+--
 
 -- Enable Comment.nvim
 require('Comment').setup()
@@ -235,9 +245,6 @@ require('indent_blankline').setup {
   char = '┊',
   show_trailing_blankline_indent = false,
 }
-
--- Gitsigns
-require('plugins.git-signs').localsetup()
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -251,9 +258,6 @@ require('telescope').setup {
     },
   },
 }
-
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -272,13 +276,8 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
-
+-- Setup mason so it can manage external tooling
+require('mason').setup()
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -286,13 +285,15 @@ require('neodev').setup()
 -- Turn on lsp status information
 require('fidget').setup()
 
--- Nvim Tree Config
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
 
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+-- [[Local Plugin Setup]]
+--
+require('plugins.lualine-evil').setupevilline()
+
+-- Gitsigns
+require('plugins.git-signs').localsetup()
 
 require('plugins.nvim-tree').localsetup()
 
@@ -302,8 +303,6 @@ require('plugins.null-ls').localsetup()
 
 require('plugins.tree-sitter').localsetup()
 
--- Setup mason so it can manage external tooling
-require('mason').setup()
 require('plugins.mason-lsp').localsetup()
 
 require('plugins.cmp').localsetup()
