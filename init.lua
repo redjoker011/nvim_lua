@@ -34,7 +34,8 @@ require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = {
       { 'hrsh7th/cmp-nvim-lsp' },
-      { 'L3MON4D3/LuaSnip',        dependencies = { 'rafamadriz/friendly-snippets' } },
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
       { 'saadparwaiz1/cmp_luasnip' }
     },
   }
@@ -76,6 +77,8 @@ require('packer').startup(function(use)
   use 'kyazdani42/nvim-tree.lua'
 
   use 'wakatime/vim-wakatime'
+
+  use 'echasnovski/mini.nvim'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -261,6 +264,8 @@ require('fidget').setup()
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+
+require('mini.starter').setup()
 
 -- [[Local Plugin Setup]]
 --
