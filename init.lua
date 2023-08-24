@@ -237,16 +237,7 @@ require('indent_blankline').setup {
 }
 
 -- Gitsigns
--- See `:help gitsigns.txt`
-require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-}
+require('plugins.git-signs').localsetup()
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
