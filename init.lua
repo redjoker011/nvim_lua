@@ -10,6 +10,10 @@ end
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+  })
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -511,3 +515,5 @@ require('plugins.git-signs').localsetup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 vim.lsp.set_log_level("debug")
+
+require('plugins.null-ls').localsetup()
