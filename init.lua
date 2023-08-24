@@ -506,14 +506,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 require('plugins.nvim-tree').localsetup()
-vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
 
 require('plugins.git-signs').localsetup()
-
--- LSP
---
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
-vim.lsp.set_log_level("debug")
 
 require('plugins.null-ls').localsetup()

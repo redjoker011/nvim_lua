@@ -34,4 +34,6 @@ function M.localsetup()
   })
 end
 
+vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
+
 return M
