@@ -1,6 +1,11 @@
 local M = {}
 
 function M.localsetup()
+  -- lazy load snippets from vscode source via rafamadriz/friendly-snippets
+  require("luasnip.loaders.from_vscode").lazy_load()
+  -- snippet extensions
+  require 'luasnip'.filetype_extend("ruby", { "rails" })
+
   -- nvim-cmp setup
   local cmp = require 'cmp'
   local luasnip = require 'luasnip'
