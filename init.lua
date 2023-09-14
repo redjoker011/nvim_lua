@@ -171,10 +171,13 @@ vim.o.foldmethod = 'expr'
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Tabs for Ruby
-vim.o.expandtab = true
-vim.o.tabstop = 2
 vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
+vim.o.tabstop = 2
+
+-- Use expandtab and modeline to properly identify tabs on insert and edit
+vim.o.expandtab = true
+vim.o.modelines = true
+
 vim.o.shiftround = true
 vim.o.smartindent = true
 vim.o.matchtime = 3
