@@ -7,16 +7,10 @@ local M = {}
 function M.localsetup()
   require("nvim-tree").setup({
     sort_by = "case_sensitive",
-    open_on_setup = true,
+    hijack_cursor = true,
     view = {
       width = 30,
       side = 'right',
-      mappings = {
-        list = {
-          { key = "u", action = "dir_up" },
-          { key = "-", action = "cd" },
-        },
-      },
     },
     actions = {
       open_file = {
