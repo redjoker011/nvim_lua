@@ -64,7 +64,6 @@ require('packer').startup(function(use)
   use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -172,7 +171,7 @@ vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Tabs for Ruby
 vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
+vim.o.softtabstop = -1 -- Use shiftwidth setting for sts
 vim.o.tabstop = 2
 
 -- Use expandtab and modeline to properly identify tabs on insert and edit
