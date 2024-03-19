@@ -1,4 +1,5 @@
 -- Use Null LS for formatting, linting and diagnostics must be delegated to LSP
+-- NOTE: LSP and Plugins for formatting, diagnostics and linting if defined here should be explicitly installed in the system. Use :checkhealth to check the logs
 local M = {}
 
 local null_ls = require("null-ls")
@@ -17,6 +18,7 @@ local lSsources = {
       "txt",
     },
   }),
+  null_ls.builtins.formatting.htmlbeautifier
 }
 
 local augroup = vim.api.nvim_create_augroup("NullLSFormatting", {})
