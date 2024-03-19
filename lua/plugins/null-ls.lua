@@ -18,7 +18,7 @@ local lSsources = {
       "txt",
     },
   }),
-  null_ls.builtins.formatting.htmlbeautifier
+  null_ls.builtins.formatting.erb_format
 }
 
 local augroup = vim.api.nvim_create_augroup("NullLSFormatting", {})
