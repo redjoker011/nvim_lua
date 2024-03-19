@@ -11,8 +11,8 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
   use({
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    "nvimtools/none-ls.nvim", -- null-ls successor
+    requires = { "nvim-lua/plenary.nvim" }
   })
 
   use { -- LSP Configuration & Plugins
