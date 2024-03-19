@@ -5,6 +5,16 @@ function M.localsetup()
   -- See `:help telescope` and `:help telescope.setup()`
   require('telescope').setup {
     defaults = {
+      vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--trim" -- add this value
+      },
       mappings = {
         i = {
           ['<C-u>'] = false,

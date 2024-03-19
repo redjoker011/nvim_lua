@@ -144,7 +144,7 @@ vim.o.termguicolors = true
 vim.cmd [[colorscheme dracula]]
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- Use relative numbering
 vim.wo.relativenumber = true
