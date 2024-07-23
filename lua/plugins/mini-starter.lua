@@ -1,5 +1,7 @@
 local M = {}
 
+local starter = require('mini.starter')
+
 M.ascii = {
   "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
   "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
@@ -42,8 +44,25 @@ M.default_header = function()
   return ('Good %s, %s'):format(day_part, username)
 end
 
+
 function M.localsetup()
-  require('mini.starter').setup({ header = table.concat(M.ascii, "\n") .. M.default_header() })
+  -- Configure MiniStarter to look similar to `mhinz/vim-startify`
+  starter.setup({
+    evaluate_single = true,
+    header = table.concat(M.ascii, "\n") .. M.default_header(),
+    items = {
+      starter.sections.builtin_actions(),
+      starter.sections.recent_files(nil, false),
+      starter.sections.recent_files(nil, true),
+      -- Use this if you set up 'mini.sessions'
+      starter.sections.sessions(5, true)
+    },
+    content_hooks = {
+      starter.gen_hook.adding_bullet(),
+      starter.gen_hook.indexing('all', { 'Builtin actions' }),
+      starter.gen_hook.padding(100, 10),
+    },
+  })
 end
 
 return M
