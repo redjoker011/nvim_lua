@@ -268,7 +268,6 @@ require('fidget').setup()
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
-require('mini.starter').setup()
 
 -- [[Local Plugin Setup]]
 --
@@ -290,3 +289,4 @@ require('plugins.mason-lsp').localsetup()
 require('plugins.cmp').localsetup()
 
 require('plugins.telescope').localsetup()
+require('plugins.mini-starter').localsetup()
