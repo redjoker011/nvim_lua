@@ -60,7 +60,7 @@ function M.localsetup()
     content_hooks = {
       starter.gen_hook.adding_bullet(),
       starter.gen_hook.indexing('all', { 'Builtin actions' }),
-      starter.gen_hook.padding(100, 10),
+      starter.gen_hook.padding(5, 2),
     },
   })
 end
