@@ -1,3 +1,5 @@
+-- stylua: ignore
+--
 require("config.lazy")
 
 -- [[ Setting options ]]
