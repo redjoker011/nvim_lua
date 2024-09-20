@@ -12,6 +12,7 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       -- Ensure the servers above are installed
       local mason_lspconfig = require 'mason-lspconfig'
@@ -72,8 +73,8 @@ return {
       }
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 
       mason_lspconfig.setup {
@@ -85,6 +86,7 @@ return {
         function(server_name)
           require('lspconfig')[server_name].setup {
             on_attach = on_attach,
+            capabilities = capabilities,
             settings = servers[server_name],
           }
         end,
