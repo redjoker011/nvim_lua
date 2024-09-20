@@ -4,7 +4,9 @@ return {
     { "hrsh7th/cmp-nvim-lsp" },
     { "L3MON4D3/LuaSnip" },
     { "rafamadriz/friendly-snippets" },
-    { "saadparwaiz1/cmp_luasnip" }
+    { "saadparwaiz1/cmp_luasnip" },
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-path" }
   },
   config = function()
     -- lazy load snippets from vscode source via rafamadriz/friendly-snippets
@@ -52,6 +54,8 @@ return {
       sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = "path" },
+        { name = "buffer" },
       },
       window = {
         documentation = cmp.config.window.bordered()
