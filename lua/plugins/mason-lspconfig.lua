@@ -6,7 +6,6 @@ return {
         "lua_ls",
         "gopls",
         "solargraph",
-        "ts_ls",
       },
     },
     lazy = false,
