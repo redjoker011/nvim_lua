@@ -16,9 +16,11 @@ local lSsources = {
       "graphql",
       "md",
       "txt",
+      "haml"
     },
   }),
-  null_ls.builtins.formatting.erb_format
+  null_ls.builtins.formatting.erb_format,
+  null_ls.builtins.diagnostics.haml_lint
 }
 
 local augroup = vim.api.nvim_create_augroup("NullLSFormatting", {})
