@@ -3,12 +3,14 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "lua_ls",
         "gopls",
         "solargraph",
         "tsserver",
-        "lua_ls",
       },
     },
+    lazy = false,
+    priority = 999,
   },
   {
     "williamboman/mason-lspconfig.nvim",
