@@ -1,10 +1,56 @@
-local M = {}
-
-function M.localsetup()
-  -- [[ Configure Telescope ]]
-  -- See `:help telescope` and `:help telescope.setup()`
-  require('telescope').setup {
+return {
+  "nvim-telescope/telescope.nvim",
+  lazy = true,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release" }
+  },
+  keys = {
+    -- add a keymap to browse plugin files
+    -- stylua: ignore
+    {
+      "<leader>sf",
+      function()
+        require("telescope.builtin").find_files()
+      end,
+      desc = "Find Plugin File",
+    },
+    {
+      "<leader><space>",
+      function()
+        require("telescope.builtin").buffers()
+      end,
+      desc = "Find existing buffers",
+    },
+    {
+      "<leader>sg",
+      function()
+        require("telescope.builtin").live_grep()
+      end,
+      desc = "Search by Grep",
+    },
+    {
+      "<leader>sw",
+      function()
+        require("telescope.builtin").search_string()
+      end,
+      desc = "Search current Word",
+    },
+    {
+      "<leader>sd",
+      function()
+        require("telescope.builtin").diagnostics()
+      end,
+      desc = "Search Diagnostics",
+    },
+  },
+  -- change some options
+  opts = {
     defaults = {
+      layout_strategy = "horizontal",
+      layout_config = { prompt_position = "top" },
+      sorting_strategy = "ascending",
+      winblend = 0,
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -22,24 +68,14 @@ function M.localsetup()
         },
       },
     },
-  }
-
-  -- See `:help telescope.builtin`
-  vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-  vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-  vim.keymap.set('n', '<leader>/', function()
-    -- You can pass additional configuration to telescope to change theme, layout, etc.
-    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-      winblend = 10,
-      previewer = false,
-    })
-  end, { desc = '[/] Fuzzily search in current buffer]' })
-
-  vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-  vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-  vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-  vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-  vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-end
-
-return M
+    extensions = {
+      fzf = {
+        fuzzy = true,                   -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true,    -- override the file sorter
+        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        -- the default case_mode is "smart_case"
+      }
+    }
+  },
+}

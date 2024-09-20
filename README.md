@@ -13,13 +13,13 @@
 
 `git clone git@github.com:redjoker011/nvim_lua.git ~/.config/nvim`
 
-**Install Plugins using Packer**
-open neovim and run `:PackerInstall` command
+**Install Plugins using Lazy**
+open neovim and run `:Lazy` command
 
 ## Plugins
 
 ### Package Mananger
-- [packer](https://github.com/wbthomason/packer.nvim)
+- [lazy](https://github.com/folke/lazy.nvim)
 
 ### LSP, Linter, Parser and Auto Complete
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
@@ -28,10 +28,9 @@ open neovim and run `:PackerInstall` command
 
 ### Git Tools
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
-- [vim-rhubarb](https://github.com/tpope/vim-rhubarb)
 
 ### Theme and Status Line
-- [onedark](https://github.com/joshdick/onedark.vim)
+- [dracula](https://github.com/maxmx03/dracula.nvim)
 - [lualine](https://github.com/nvim-lualine/lualine.nvim)
 - [gitsigns](https://github.com/lewis6991/gitsigns.nvim)
 
@@ -42,7 +41,6 @@ open neovim and run `:PackerInstall` command
 - [Comment](https://github.com/numToStr/Comment.nvim)
 
 ### Floating Buffer and Window control
-- [vim-sleuth](https://github.com/tpope/vim-sleuth)
 - [telescopic](https://github.com/nvim-telescope/telescope.nvim)
 
 ### Tree Directory
@@ -91,4 +89,3 @@ open neovim and run `:PackerInstall` command
 | <Leader\>v        | Toggle Nvim Tree			      	              |     Nvim Tree	               |
 | <C\>v             | Open file in vertical split		      	      |     Nvim Tree	               |
 | <C\>x             | Open file in horizontal split		      	      |     Nvim Tree	    |
-

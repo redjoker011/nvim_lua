@@ -1,115 +1,6 @@
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd [[packadd packer.nvim]]
-end
-
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
-  use({
-    "nvimtools/none-ls.nvim", -- null-ls successor
-    requires = { "nvim-lua/plenary.nvim" }
-  })
-
-  use { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    requires = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
-
-      -- Additional lua configuration, makes nvim stuff amazing
-      'folke/neodev.nvim',
-    },
-  }
-
-  use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
-      { 'saadparwaiz1/cmp_luasnip' }
-    },
-  }
-
-  use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  }
-
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
-
-  -- Git related plugins
-  use 'tpope/vim-fugitive'      -- Vim plugin for Git
-  use 'tpope/vim-rhubarb'       -- Vim plugin for Hub. Paired with vim-fugitive
-  use 'tpope/vim-surround'      -- Plugin for adding Brackets, Parenthesis and many more on existing word
-  use 'jiangmiao/auto-pairs'    -- Insert Auto Pairs(Bracket, Parenthesis, Quote)
-  use 'lewis6991/gitsigns.nvim' -- Plugin for identifying added/deleted/modified lines
-
-  -- use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
-  use 'maxmx03/dracula.nvim'
-  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
-
-  -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
-  -- Tree Explorer with icon highlight
-  use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use 'kyazdani42/nvim-tree.lua'
-
-  use 'wakatime/vim-wakatime'
-
-  use 'echasnovski/mini.nvim'
-
-  -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-  local has_plugins, plugins = pcall(require, 'custom.plugins')
-  if has_plugins then
-    plugins(use)
-  end
-
-  if is_bootstrap then
-    require('packer').sync()
-  end
-end)
-
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
+-- stylua: ignore
 --
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
-
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
-})
+require("config.lazy")
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -141,7 +32,6 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme dracula]]
 
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
@@ -167,7 +57,6 @@ vim.o.spell = true
 vim.o.foldlevel = 1
 vim.o.foldenable = true
 vim.o.foldmethod = 'expr'
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Tabs for Ruby
 vim.o.shiftwidth = 2
@@ -182,13 +71,6 @@ vim.o.shiftround = true
 vim.o.smartindent = true
 vim.o.matchtime = 3
 
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happenbefore plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ','
-vim.g.maplocalleader = ','
-
 -- Nvim Tree Config
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -197,22 +79,13 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- Global Mappings
---
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
--- vim.keymap.set({ 'n', 'v' }, ',', '<Nop>', { silent = true })
+-- Map jk to escape
+vim.keymap.set('i', 'jk', '<esc>')
+vim.keymap.set('i', '<esc>', '<nop>')
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -225,68 +98,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- Map jk to escape
-vim.keymap.set('i', 'jk', '<esc>')
-vim.keymap.set('i', '<esc>', '<nop>')
-
 -- Enforce using j and k when moving
 vim.keymap.set('n', '<Up>', function() print 'Use k' end)
 vim.keymap.set('n', '<Left>', function() print 'Use h' end)
 vim.keymap.set('n', '<Down>', function() print 'Use j' end)
 vim.keymap.set('n', '<Right>', function() print 'Use l' end)
-
--- Utility Mappings c/o Vim the Hardway
---
-
--- Open Vim Config in vspit
-vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<cr>')
--- Reload Vim Config from source
-vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<cr>')
-
--- [[Plugin Setup]]
---
-
--- Enable Comment.nvim
-require('Comment').setup()
-
--- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-}
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- Turn on lsp status information
-require('fidget').setup()
-
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
-
-
--- [[Local Plugin Setup]]
---
-require('plugins.lualine-evil').setupevilline()
-
--- Gitsigns
-require('plugins.git-signs').localsetup()
-
-require('plugins.nvim-tree').localsetup()
-
-require('plugins.git-signs').localsetup()
-
-require('plugins.null-ls').localsetup()
-
-require('plugins.tree-sitter').localsetup()
-
-require('plugins.mason-lsp').localsetup()
-
-require('plugins.cmp').localsetup()
-
-require('plugins.telescope').localsetup()
-require('plugins.mini-starter').localsetup()

@@ -1,29 +1,29 @@
-local M = {}
-
-function M.localsetup()
-  -- [[ Configure Treesitter ]]
-  -- See `:help nvim-treesitter`
-  require('nvim-treesitter.configs').setup {
-    modules = {},
-    sync_install = false,
-    auto_install = true,
-    ignore_install = {},
-    -- Add languages to be installed here that you want installed for treesitter
+return {
+  "nvim-treesitter/nvim-treesitter",
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects"
+  },
+  opts = {
     ensure_installed = {
-      'c',
+      "bash",
+      "html",
+      "javascript",
+      "json",
+      "lua",
+      "markdown",
+      "markdown_inline",
+      "query",
+      "regex",
+      "typescript",
+      "vim",
+      "yaml",
       'go',
-      'lua',
       'vim',
       'ruby',
-      'yaml',
-      'html',
-      'json',
       'sql',
-      'javascript',
       'css',
       'scss'
     },
-
     highlight = { enable = true },
     indent = { enable = true, disable = { 'python' } },
     incremental_selection = {
@@ -79,7 +79,5 @@ function M.localsetup()
         },
       },
     },
-  }
-end
-
-return M
+  },
+}
