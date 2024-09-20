@@ -66,26 +66,61 @@ open neovim and run `:Lazy` command
 
 <br>
 
+### Modes
 
-| Key Binding | Description 		   				|  Plugin 		       |
-| ----------------- | ------------------------------------------------------- | ------------------------------ |
-| <C-w-s\>          | Open new window in horizontal mode      		      |   		               |
-| <C-w-v\>          | Open new window in vertical mode        		      |              		       |
-| I                 | Insert Mode        				      |              		       |
-| Esc	            | Exit Insert Mode        				      |                                |
-| <Leader\>ev	    | Edit $VIMRC        				      |                                 |
-| <Leader\>sv	    | Reload $VIMRC        				      |                                 |
-| <Leader\>?        | Find recently opened files         		      |     Vim Telescope              |
-| <Leader\><Space\> | View existing buffers              		      |     Vim Telescope              |
-| <Leader\>sf       | Search File in directory           		      |     Vim Telescope              |
-| <Leader\>sh       | Search Help tags                   		      |     Vim Telescope              |
-| <Leader\>sg       | Search for word or regrexp using Grep in directory      |     Vim Telescope              |
-| <Leader\>sd       | Search Diagnostics				      |     Vim Telescope              |
-| gd                | Go To Definition		      	          |     LSP	                        |
-| gr                | Go To References		      	          |     LSP	                        |
-| gI                | Go To Implementation		      	      |     LSP	                        |
-| <Leader\>D        | Type Definition		      	          |     LSP	                        |
-| K                 | Hover Documentation		      	      |     LSP	                        |
-| <Leader\>v        | Toggle Nvim Tree			      	              |     Nvim Tree	               |
-| <C\>v             | Open file in vertical split		      	      |     Nvim Tree	               |
-| <C\>x             | Open file in horizontal split		      	      |     Nvim Tree	    |
+| Mode | Description                                            |
+| ---- | ------------------------------------------------------ |
+| n    | Normal                                                 |
+| v    | Visual and Select                                      |
+| s    | Select                                                 |
+| x    | Visual                                                 |
+| o    | Operator-pending                                       |
+| !    | Insert and Command-line                                |
+| i    | Insert                                                 |
+| l    | ":lmap" mappings for Insert, Command-line and Lang-Arg |
+| c    | Command-line                                           |
+| t    | Terminal-Job                                           |
+
+### General
+
+| Key Binding | Description                        | Mode |
+| ----------- | ---------------------------------- | ---- |
+| <C-w-s\>    | Open new window in horizontal mode | n    |
+| <C-w-v\>    | Open new window in vertical mode   | n    |
+| I           | Insert Mode                        | n    |
+| Esc         | Exit Insert Mode                   | i    |
+| <Leader\>ev | Edit $VIMRC                        | n    |
+| <Leader\>sv | Reload $VIMRC                      | n    |
+
+### Telescope
+
+| Key Binding       | Description                                        | Mode |
+| ----------------- | -------------------------------------------------- | ---- |
+| <Leader\>?        | Find recently opened files                         | n    |
+| <Leader\><Space\> | View existing buffers                              | n    |
+| <Leader\>sf       | Search File in directory                           | n    |
+| <Leader\>sh       | Search Help tags                                   | n    |
+| <Leader\>sg       | Search for word or regrexp using Grep in directory | n    |
+| <Leader\>sd       | Search Diagnostics                                 | n    |
+
+### LSP
+
+| Key Binding | Description          | Mode |
+| ----------- | -------------------- | ---- |
+| gd          | Go To Definition     | n    |
+| gr          | Go To References     | n    |
+| gI          | Go To Implementation | n    |
+| <Leader\>D  | Type Definition      | n    |
+| K           | Hover Documentation  | n    |
+| <Leader\>ca | Code Action          | n    |
+| <Leader\>cR | Rename File          | n    |
+| <Leader\>ca | Rename               | n    |
+
+### Nvim Tree
+
+| Key Binding | Description                   | Mode      |
+| ----------- | ----------------------------- | --------- |
+| <Leader\>v  | Toggle Nvim Tree              | Nvim Tree |
+| <Leader\>t  | Focus Nvim Tree               | Nvim Tree |
+| <C\>v       | Open file in vertical split   | Nvim Tree |
+| <C\>x       | Open file in horizontal split | Nvim Tree |
