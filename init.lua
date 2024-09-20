@@ -1,3 +1,10 @@
+-- [[ Basic Keymaps ]]
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happenbefore plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ','
+vim.g.maplocalleader = ','
+
 require("config.lazy")
 
 -- [[ Setting options ]]
@@ -68,13 +75,6 @@ vim.o.modelines = true
 vim.o.shiftround = true
 vim.o.smartindent = true
 vim.o.matchtime = 3
-
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happenbefore plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ','
-vim.g.maplocalleader = ','
 
 -- Nvim Tree Config
 -- disable netrw at the very start of your init.lua (strongly advised)
