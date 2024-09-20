@@ -6,7 +6,7 @@ return {
         "lua_ls",
         "gopls",
         "solargraph",
-        "tsserver",
+        "ts_ls",
       },
     },
     lazy = false,
@@ -70,7 +70,7 @@ return {
       local servers = {
         gopls = {},
         solargraph = {},
-        tsserver = {},
+        ts_ls = {},
         lua_ls = {},
       }
 
