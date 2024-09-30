@@ -32,13 +32,14 @@ return {
           "yaml",
           'go',
           'vim',
+          'vimdoc',
           'ruby',
           'sql',
           'css',
           'scss'
         },
         highlight = { enable = true },
-        indent = { enable = true, disable = { 'python' } },
+        indent = { enable = true, disable = { 'python', 'vimdoc' } },
         incremental_selection = {
           enable = true,
           keymaps = {
