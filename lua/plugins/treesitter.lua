@@ -3,8 +3,14 @@ return {
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects"
   },
+  build = ":TSUpdate",
+  lazy = vim.fn.argc(-1) == 0,
+  init = function()
+    require("nvim-treesitter.install").prefer_git = true
+    require("nvim-treesitter.query_predicates")
+  end,
   opts = function()
-    local parser_path = "/Users/pete-montani/.local/share/nvim/lazy/nvim-treesitter/parser"
+    local parser_path = "~/.local/share/nvim/lazy/nvim-treesitter/parser"
     vim.opt.runtimepath:prepend(parser_path)
     local treesitter = require 'nvim-treesitter.configs'
 
