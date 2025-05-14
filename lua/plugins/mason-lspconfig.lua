@@ -1,6 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
+    version = "^1.0.0",
     opts = {
       ensure_installed = {
         "lua_ls",
@@ -13,6 +14,7 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    version = "^1.0.0",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       -- Ensure the servers above are installed
@@ -77,12 +79,6 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-
-      mason_lspconfig.setup {
-        ensure_installed = vim.tbl_keys(servers),
-        automatic_installation = true
-      }
-
       mason_lspconfig.setup_handlers {
         function(server_name)
           require('lspconfig')[server_name].setup {
@@ -91,6 +87,11 @@ return {
             settings = servers[server_name],
           }
         end,
+      }
+
+      mason_lspconfig.setup {
+        ensure_installed = vim.tbl_keys(servers),
+        automatic_installation = true
       }
     end
   }
