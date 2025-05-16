@@ -58,9 +58,6 @@ return {
         nmap('<leader>wl', function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, '[W]orkspace [L]ist Folders')
-
-        -- Format buffer on save using LSP
-        vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
       end
 
       -- Enable the following language servers

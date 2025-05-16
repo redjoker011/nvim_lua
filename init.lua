@@ -103,3 +103,15 @@ vim.keymap.set('n', '<Up>', function() print 'Use k' end)
 vim.keymap.set('n', '<Left>', function() print 'Use h' end)
 vim.keymap.set('n', '<Down>', function() print 'Use j' end)
 vim.keymap.set('n', '<Right>', function() print 'Use l' end)
+
+-- Format on save only if LSP is active
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+
+    if #clients > 0 then
+      vim.lsp.buf.format({ async = false })
+    end
+  end
+})
