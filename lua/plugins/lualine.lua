@@ -211,15 +211,27 @@ return {
     }
 
     ins_right {
-      'diff',
-      -- Is it me or the symbol for modified us really weird
-      symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
-      diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
-      },
-      cond = conditions.hide_in_width,
+      "diff",
+      fmt = function(str)
+        local count = str:match("%d+")
+        if count then
+          return str:gsub("%d+%s*", "")
+        end
+        return str
+      end,
+      source = function()
+        local gitsigns = vim.b.gitsigns_status_dict
+        if gitsigns then
+          return {
+            added = gitsigns.added,
+            modified = gitsigns.changed,
+            removed = gitsigns.removed,
+          }
+        end
+      end,
+      -- symbols = { added = "•", modified = "•", removed = "•" },
+      symbols = { added = "▪", modified = "▪", removed = "▪" },
+      padding = { left = 0, right = 1 },
     }
 
     ins_right {
