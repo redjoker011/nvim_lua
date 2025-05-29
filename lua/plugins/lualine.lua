@@ -1,3 +1,7 @@
+-- ref:
+-- - https://github.com/nvim-lualine/lualine.nvim
+-- - https://github.com/idr4n/nvim-lua/blob/master/lua/plugins/lualine.lua
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { 'nvim-tree/nvim-web-devicons' },
