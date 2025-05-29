@@ -74,6 +74,13 @@ return {
         lualine_c = {},
         lualine_x = {},
       },
+      extensions = {
+        "lazy",
+        "nvim-tree",
+        "fzf",
+        "mason",
+        "trouble",
+      },
     }
 
     -- Inserts a component in lualine_c at left section
@@ -176,10 +183,14 @@ return {
     }
 
     ins_right {
-      'filetype',
-      fmt = string.upper,
-      icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
-      color = { fg = colors.green, gui = 'bold' },
+      "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 }
+    }
+
+    ins_right {
+      function()
+        return vim.bo.filetype:upper()
+      end,
+      padding = { left = 0, right = 1 },
     }
 
     ins_right {
