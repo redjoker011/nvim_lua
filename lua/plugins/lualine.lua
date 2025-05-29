@@ -155,17 +155,6 @@ return {
       cond = conditions.hide_in_width
     }
 
-    ins_left {
-      'diagnostics',
-      sources = { 'nvim_diagnostic' },
-      symbols = { error = ' ', warn = ' ', info = ' ' },
-      diagnostics_color = {
-        error = { fg = colors.red },
-        warn = { fg = colors.yellow },
-        info = { fg = colors.cyan },
-      },
-    }
-
     -- Insert mid section. You can make any number of sections in neovim :)
     -- for lualine it's any number greater then 2
     ins_left {
@@ -211,7 +200,7 @@ return {
     }
 
     ins_right {
-      "diff",
+      'diff',
       fmt = function(str)
         local count = str:match("%d+")
         if count then
@@ -232,6 +221,19 @@ return {
       -- symbols = { added = "•", modified = "•", removed = "•" },
       symbols = { added = "▪", modified = "▪", removed = "▪" },
       padding = { left = 0, right = 1 },
+    }
+
+    ins_right {
+      'diagnostics',
+      symbols = { error = "●", warn = "●", info = "●", hint = "●" },
+      padding = { left = 0, right = 1 },
+      fmt = function(str)
+        local count = str:match("%d+")
+        if count then
+          return str:gsub("%d+%s*", "")
+        end
+        return str
+      end,
     }
 
     ins_right {
