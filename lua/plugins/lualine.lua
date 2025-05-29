@@ -137,7 +137,17 @@ return {
       color = { fg = colors.magenta, gui = 'bold' },
     }
 
-    ins_left { 'location' }
+    ins_left {
+      'branch',
+      icon = '',
+      color = { fg = colors.violet, gui = 'bold' },
+      cond = conditions.hide_in_width
+    }
+
+    ins_left {
+      'location',
+      cond = conditions.hide_in_width
+    }
 
     ins_left {
       'progress',
@@ -164,7 +174,22 @@ return {
       end,
     }
 
-    ins_left {
+    -- Add components to right sections
+    ins_right {
+      'o:encoding',       -- option component same as &encoding in viml
+      fmt = string.upper, -- I'm not sure why it's upper case either ;)
+      cond = conditions.hide_in_width,
+      color = { fg = colors.green, gui = 'bold' }
+    }
+
+    ins_right {
+      'filetype',
+      fmt = string.upper,
+      icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
+      color = { fg = colors.green, gui = 'bold' },
+    }
+
+    ins_right {
       -- Lsp server name .
       function()
         local msg = 'No Active Lsp'
@@ -181,31 +206,8 @@ return {
         end
         return msg
       end,
-      icon = ' LSP:',
-      color = { fg = '#ffffff', gui = 'bold' },
-      cond = conditions.hide_in_width
-    }
-
-    -- Add components to right sections
-    ins_right {
-      'o:encoding',       -- option component same as &encoding in viml
-      fmt = string.upper, -- I'm not sure why it's upper case either ;)
-      cond = conditions.hide_in_width,
-      color = { fg = colors.green, gui = 'bold' },
-    }
-
-    ins_right {
-      'fileformat',
-      fmt = string.upper,
-      icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
-      color = { fg = colors.green, gui = 'bold' },
-    }
-
-    ins_right {
-      'branch',
-      icon = '',
-      color = { fg = colors.violet, gui = 'bold' },
-      cond = conditions.hide_in_width
+      icon = '',
+      color = { fg = colors.violet, gui = 'bold' }
     }
 
     ins_right {
@@ -225,7 +227,7 @@ return {
         return '▊'
       end,
       color = { fg = colors.blue },
-      padding = { left = 1 },
+      padding = { left = 1, right = 0 }
     }
 
     lualine.setup(config)
