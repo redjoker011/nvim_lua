@@ -56,7 +56,8 @@ vim.o.spell = true
 -- Enable folding
 vim.o.foldlevel = 1
 vim.o.foldenable = true
-vim.o.foldmethod = 'expr'
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Tabs for Ruby
 vim.o.shiftwidth = 2
