@@ -30,5 +30,6 @@ return {
     })
     vim.keymap.set("n", "<Leader>v", ":NvimTreeToggle<CR>", { silent = true })
     vim.keymap.set("n", "<Leader>t", ":NvimTreeFocus<CR>", { silent = true })
+    vim.keymap.set('n', '<C-f>', '<cmd>NvimTreeFindFile<CR>')
   end
 }
