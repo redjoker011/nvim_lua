@@ -117,6 +117,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end
 })
 
+vim.api.nvim_create_user_command('ReloadConfig', function()
+  require('config.reload').reload()
+end, {})
+
+vim.keymap.set('n', '<leader>rr', '<cmd>ReloadConfig<CR>', {
+  desc = 'Reload Neovim config'
+})
+
 -- mise
 -- Prepend mise shims to PATH
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH

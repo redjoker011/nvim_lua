@@ -1,25 +1,35 @@
 local M = {}
 
 M.reload = function()
-  local config_path = vim.env.MYVIMRC
+  local lua_path = vim.fn.stdpath("config") .. "/lua"
 
-  -- Clear user modules
+  -- Clear modules
   for name, _ in pairs(package.loaded) do
-    if name:match("^config") or name:match("^plugins") or name:match("^user") then
+    if name:match("^config") or name:match("^plugins") then
       package.loaded[name] = nil
     end
   end
 
-  -- Reload init.lua
-  dofile(config_path)
+  -- Find all lua files under config/ and plugins/
+  local files = vim.fn.glob(lua_path .. "/{config,plugins}/**/*.lua", true, true)
 
-  -- Reload Lazy safely via API (not vim.cmd)
+  for _, file in ipairs(files) do
+    local module = file
+        :gsub(lua_path .. "/", "")
+        :gsub("%.lua$", "")
+        :gsub("/", ".")
+
+    -- require safely
+    pcall(require, module)
+  end
+
+  -- Let lazy handle plugin state
   local ok, lazy = pcall(require, "lazy")
-  if ok and lazy.reload then
+  if ok then
     pcall(lazy.reload)
   end
 
-  vim.notify("Reloaded config from: " .. config_path, vim.log.levels.INFO)
+  vim.notify("Config reloaded (auto)", vim.log.levels.INFO)
 end
 
 return M
