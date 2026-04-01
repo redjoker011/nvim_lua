@@ -1,157 +1,264 @@
 -- ref:
 -- - https://github.com/nvim-lualine/lualine.nvim
 -- - https://github.com/idr4n/nvim-lua/blob/master/lua/plugins/lualine.lua
+
 return {
   "nvim-lualine/lualine.nvim",
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
-    local lualine = require("lualine")
+    -- Eviline config for lualine
+    -- Author: shadmansaleh
+    -- Credit: glepnir
+    local lualine = require('lualine')
 
-    -- Dracula-friendly palette
+    -- Color table for highlights
+    -- stylua: ignore
     local colors = {
-      bg = "#282a36",
-      fg = "#f8f8f2",
-      purple = "#bd93f9",
-      green = "#50fa7b",
-      red = "#ff5555",
-      yellow = "#f1fa8c",
-      cyan = "#8be9fd",
-      orange = "#ffb86c",
-      pink = "#ff79c6",
-      comment = "#6272a4",
+      bg       = '#202328',
+      fg       = '#bbc2cf',
+      yellow   = '#ECBE7B',
+      cyan     = '#008080',
+      darkblue = '#081633',
+      green    = '#98be65',
+      orange   = '#FF8800',
+      violet   = '#a9a1e1',
+      magenta  = '#c678dd',
+      blue     = '#51afef',
+      red      = '#ec5f67',
     }
 
-    -- Helpers
-    local function has_width_gt(cols)
-      return vim.fn.winwidth(0) > cols
-    end
+    local conditions = {
+      buffer_not_empty = function()
+        return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+      end,
+      hide_in_width = function()
+        return vim.fn.winwidth(0) > 80
+      end,
+      check_git_workspace = function()
+        local filepath = vim.fn.expand('%:p:h')
+        local gitdir = vim.fn.finddir('.git', filepath .. ';')
+        return gitdir and #gitdir > 0 and #gitdir < #filepath
+      end,
+    }
 
-    local function get_lsp_client()
-      local buf_ft = vim.bo.filetype
-      local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-      if #clients == 0 then
-        return "No LSP"
-      end
-
-      for _, client in ipairs(clients) do
-        local ft = client.config.filetypes
-        if ft and vim.tbl_contains(ft, buf_ft) then
-          return client.name
-        end
-      end
-
-      return "LSP"
-    end
-
-    -- Harpoon indicator (optional but useful with your setup)
-    local function harpoon_component()
-      local ok, mark = pcall(require, "harpoon.mark")
-      if not ok then return "" end
-
-      local total = mark.get_length()
-      local current = mark.get_current_index()
-
-      if current and total > 0 then
-        return string.format("󰀱 %d/%d", current, total)
-      end
-      return ""
-    end
-
-    -- Macro recording indicator
-    local function recording()
-      local reg = vim.fn.reg_recording()
-      if reg ~= "" then
-        return " @" .. reg
-      end
-      return ""
-    end
-
-    lualine.setup({
+    -- Config
+    local config = {
       options = {
-        theme = "dracula",
-        globalstatus = true,
-        component_separators = "",
-        section_separators = "",
+        -- Disable sections and component separators
+        component_separators = '',
+        section_separators = '',
+        theme = {
+          -- We are going to use lualine_c an lualine_x as left and
+          -- right section. Both are highlighted by c theme .  So we
+          -- are just setting default looks o statusline
+          normal = { c = { fg = colors.fg, bg = colors.bg } },
+          inactive = { c = { fg = colors.fg, bg = colors.bg } },
+        },
       },
-
       sections = {
-        lualine_a = {
-          {
-            "mode",
-            color = { fg = colors.bg, bg = colors.purple, gui = "bold" },
-          },
-        },
-
-        lualine_b = {
-          {
-            "branch",
-            icon = "",
-          },
-          {
-            "diff",
-            symbols = { added = " ", modified = "柳", removed = " " },
-            cond = has_width_gt(80),
-          },
-        },
-
-        lualine_c = {
-          {
-            "filename",
-            path = 1,
-          },
-          {
-            harpoon_component,
-            cond = function()
-              return harpoon_component() ~= ""
-            end,
-          },
-        },
-
-        lualine_x = {
-          {
-            recording,
-            color = { fg = colors.red },
-          },
-          {
-            "diagnostics",
-            sources = { "nvim_diagnostic" },
-            symbols = { error = " ", warn = " ", info = " ", hint = " " },
-          },
-          {
-            get_lsp_client,
-            icon = "",
-          },
-          {
-            "filetype",
-            icon_only = true,
-          },
-        },
-
-        lualine_y = {
-          "progress",
-        },
-
-        lualine_z = {
-          "location",
-        },
-      },
-
-      inactive_sections = {
-        lualine_c = { "filename" },
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        -- These will be filled later
+        lualine_c = {},
         lualine_x = {},
       },
-
+      inactive_sections = {
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        lualine_c = {},
+        lualine_x = {},
+      },
       extensions = {
         "lazy",
-        "mason",
-        "trouble",
-        "oil",
         "nvim-tree",
         "fzf",
+        "mason",
+        "trouble",
       },
-    })
-  end,
+    }
+
+    -- Inserts a component in lualine_c at left section
+    local function ins_left(component)
+      table.insert(config.sections.lualine_c, component)
+    end
+
+    -- Inserts a component in lualine_x at right section
+    local function ins_right(component)
+      table.insert(config.sections.lualine_x, component)
+    end
+
+    ins_left {
+      function()
+        return '▊'
+      end,
+      color = { fg = colors.blue },      -- Sets highlighting of component
+      padding = { left = 0, right = 1 }, -- We don't need space before this
+    }
+
+    ins_left {
+      -- mode component
+      function()
+        return ''
+      end,
+      color = function()
+        -- auto change color according to neovims mode
+        local mode_color = {
+          n = colors.red,
+          i = colors.green,
+          v = colors.blue,
+          [''] = colors.blue,
+          V = colors.blue,
+          c = colors.magenta,
+          no = colors.red,
+          s = colors.orange,
+          S = colors.orange,
+          [''] = colors.orange,
+          ic = colors.yellow,
+          R = colors.violet,
+          Rv = colors.violet,
+          cv = colors.red,
+          ce = colors.red,
+          r = colors.cyan,
+          rm = colors.cyan,
+          ['r?'] = colors.cyan,
+          ['!'] = colors.red,
+          t = colors.red,
+        }
+        return { fg = mode_color[vim.fn.mode()] }
+      end,
+      padding = { right = 1 },
+      cond = conditions.hide_in_width
+    }
+
+    ins_left {
+      -- filesize component
+      'filesize',
+      cond = conditions.buffer_not_empty,
+    }
+
+    ins_left {
+      'filename',
+      cond = conditions.buffer_not_empty,
+      color = { fg = colors.magenta, gui = 'bold' },
+    }
+
+    ins_left {
+      'branch',
+      icon = '',
+      color = { fg = colors.violet, gui = 'bold' },
+      cond = conditions.hide_in_width
+    }
+
+    ins_left {
+      'location',
+      cond = conditions.hide_in_width
+    }
+
+    ins_left {
+      'progress',
+      color = { fg = colors.fg, gui = 'bold' },
+      cond = conditions.hide_in_width
+    }
+
+    -- Insert mid section. You can make any number of sections in neovim :)
+    -- for lualine it's any number greater then 2
+    ins_left {
+      function()
+        return '%='
+      end,
+    }
+
+    -- Add components to right sections
+    ins_right {
+      'o:encoding',       -- option component same as &encoding in viml
+      fmt = string.upper, -- I'm not sure why it's upper case either ;)
+      cond = conditions.hide_in_width,
+      color = { fg = colors.green, gui = 'bold' }
+    }
+
+    ins_right {
+      "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 }
+    }
+
+    ins_right {
+      function()
+        return vim.bo.filetype:upper()
+      end,
+      padding = { left = 0, right = 1 },
+    }
+
+    ins_right {
+      -- Lsp server name .
+      function()
+        local msg = 'No Active Lsp'
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_clients()
+        if next(clients) == nil then
+          return msg
+        end
+        for _, client in ipairs(clients) do
+          local filetypes = client.config.filetypes
+          if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+            return client.name
+          end
+        end
+        return msg
+      end,
+      icon = '',
+      color = { fg = colors.violet, gui = 'bold' }
+    }
+
+    ins_right {
+      'diff',
+      fmt = function(str)
+        local count = str:match("%d+")
+        if count then
+          return str:gsub("%d+%s*", "")
+        end
+        return str
+      end,
+      source = function()
+        local gitsigns = vim.b.gitsigns_status_dict
+        if gitsigns then
+          return {
+            added = gitsigns.added,
+            modified = gitsigns.changed,
+            removed = gitsigns.removed,
+          }
+        end
+      end,
+      -- symbols = { added = "•", modified = "•", removed = "•" },
+      symbols = { added = "▪", modified = "▪", removed = "▪" },
+      padding = { left = 0, right = 1 },
+    }
+
+    ins_right {
+      'diagnostics',
+      symbols = { error = "●", warn = "●", info = "●", hint = "●" },
+      padding = { left = 0, right = 1 },
+      fmt = function(str)
+        local count = str:match("%d+")
+        if count then
+          return str:gsub("%d+%s*", "")
+        end
+        return str
+      end,
+    }
+
+    ins_right {
+      function()
+        return '▊'
+      end,
+      color = { fg = colors.blue },
+      padding = { left = 1, right = 0 }
+    }
+
+    lualine.setup(config)
+  end
 }
