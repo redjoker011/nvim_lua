@@ -1,18 +1,13 @@
 return {
   "tpope/vim-fugitive",
   cmd = {
-    "Git", "G", "Gblame", "Gdiffsplit", "Gedit", "Gsplit", "Gtabedit",
-    "Gread", "Gwrite", "Ggrep", "Gmove", "Gdelete",
+    "Git", "G", "G commit", "G blame", "Gdiffsplit", "Gread", "Gwrite", "G push", "G pull"
   },
   keys = {
     { "<leader>gs", "<cmd>Git<CR>",                                             desc = "Git (run git command)",                           mode = "n" },
-    { "<leader>gS", "<cmd>Git status<CR>",                                      desc = "Git status (explicit)",                           mode = "n" },
     { "<leader>gb", "<cmd>G blame<CR>",                                         desc = "Git blame (interactive split)",                   mode = "n" },
     { "<leader>gd", "<cmd>Gdiffsplit<CR>",                                      desc = "Git diff (vertical split)",                       mode = "n" },
-    { "<leader>gD", "<cmd>Gdiffsplit!<CR>",                                     desc = "Git diff (horizontal split)",                     mode = "n" },
-    { "<leader>ge", "<cmd>Gedit<CR>",                                           desc = "Open file/commit under cursor (Gedit)",           mode = "n" },
-    { "<leader>gE", "<cmd>Gtabedit<CR>",                                        desc = "Open file/commit under cursor in new tab",        mode = "n" },
-    { "<leader>gC", "<cmd>Git commit<CR>",                                      desc = "Git commit",                                      mode = "n" },
+    { "<leader>gc", "<cmd>Git commit<CR>",                                      desc = "Git commit",                                      mode = "n" },
     { "<leader>gp", "<cmd>Git push<CR>",                                        desc = "Git push",                                        mode = "n" },
     { "<leader>gP", "<cmd>Git pull<CR>",                                        desc = "Git pull",                                        mode = "n" },
     { "<leader>gr", "<cmd>Gread<CR>",                                           desc = "Revert buffer to HEAD (discard working changes)", mode = "n" },
