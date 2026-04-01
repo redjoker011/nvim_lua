@@ -5,46 +5,6 @@ return {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release" }
   },
-  keys = {
-    -- add a keymap to browse plugin files
-    -- stylua: ignore
-    {
-      "<leader>sf",
-      function()
-        require("telescope.builtin").find_files()
-      end,
-      desc = "Find Plugin File",
-    },
-    {
-      "<leader><space>",
-      function()
-        require("telescope.builtin").buffers()
-      end,
-      desc = "Find existing buffers",
-    },
-    {
-      "<leader>sg",
-      function()
-        require("telescope.builtin").live_grep()
-      end,
-      desc = "Search by Grep",
-    },
-    {
-      "<leader>sw",
-      function()
-        require("telescope.builtin").search_string()
-      end,
-      desc = "Search current Word",
-    },
-    {
-      "<leader>sd",
-      function()
-        require("telescope.builtin").diagnostics()
-      end,
-      desc = "Search Diagnostics",
-    },
-  },
-  -- change some options
   opts = {
     defaults = {
       layout_strategy = "horizontal",
@@ -78,4 +38,15 @@ return {
       }
     }
   },
+  config = function(_, opts)
+    require("telescope").setup(opts)
+
+    local builtin = require("telescope.builtin")
+
+    -- Core navigation
+    vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+    vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
+    vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Recent files" })
+  end
 }
