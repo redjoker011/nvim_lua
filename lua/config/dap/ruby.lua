@@ -56,37 +56,6 @@ dap.configurations.ruby = {
     end,
   },
 
-  -- 🧪 RSpec (current file)
-  {
-    type = "ruby",
-    name = "RSpec: current file",
-    request = "attach",
-    runtime_args = function()
-      if use_bundle() then
-        return { "bundle", "exec", "rspec", vim.fn.expand("%") }
-      else
-        return { "rspec", vim.fn.expand("%") }
-      end
-    end,
-  },
-
-  -- 🧪 RSpec (nearest example via line)
-  {
-    type = "ruby",
-    name = "RSpec: nearest",
-    request = "attach",
-    localfs = true,
-    runtime_args = function()
-      local file = vim.fn.expand("%")
-      local line = vim.fn.line(".")
-      if use_bundle() then
-        return { "bundle", "exec", "rspec", file .. ":" .. line }
-      else
-        return { "rspec", file .. ":" .. line }
-      end
-    end,
-  },
-
   -- 📜 Plain Ruby script (non-Rails)
   {
     type = "ruby",
