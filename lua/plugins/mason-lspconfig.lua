@@ -11,7 +11,6 @@ return {
       },
     },
   },
-
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
@@ -138,5 +137,15 @@ return {
       --   vim.lsp.enable { name = "lua_ls", bufnr = 0 }
       -- etc. But most setups only need the configs; nvim will handle starting per root/ft.
     end,
+  },
+  {
+    "williamboman/mason-nvim-dap.nvim",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      ensure_installed = { "ruby" },
+      automatic_installation = true,
+    },
   },
 }
