@@ -1,6 +1,13 @@
 local dap = require("dap")
 local PORT = 38698
 
+local function sanitize_args(args)
+  if args and args[1] == "exec" then
+    table.remove(args, 1)
+  end
+  return args
+end
+
 -- adapter
 dap.adapters.ruby = function(callback, config)
   local cmd = { "bundle", "exec", "rdbg",
@@ -16,7 +23,8 @@ dap.adapters.ruby = function(callback, config)
   end
 
   if config.args then
-    for _, v in ipairs(config.args) do
+    local cleaned = sanitize_args(vim.deepcopy(config.args))
+    for _, v in ipairs(cleaned) do
       table.insert(cmd, v)
     end
   end
