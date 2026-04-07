@@ -50,16 +50,14 @@ dap.configurations.ruby = {
     request = "attach",
     localfs = true,
     args = { "bin/rails", "server" }
-  }
+  },
 
   -- -- 📜 Plain Ruby script (non-Rails)
-  -- {
-  --   type = "ruby",
-  --   name = "Ruby: current file",
-  --   request = "attach",
-  --   localfs = true,
-  --   runtime_args = function()
-  --     return { "ruby", vim.fn.expand("%") }
-  --   end,
-  -- },
+  {
+    type = "ruby",
+    name = "Ruby: current file",
+    request = "attach",
+    localfs = true,
+    args = { "ruby", vim.fn.expand("%") }
+  },
 }
