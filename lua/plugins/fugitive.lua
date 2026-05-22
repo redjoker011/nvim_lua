@@ -9,6 +9,7 @@ return {
     { "<leader>gd", "<cmd>Gdiffsplit<CR>",                                      desc = "Git diff (vertical split)",                       mode = "n" },
     { "<leader>gc", "<cmd>Git commit<CR>",                                      desc = "Git commit",                                      mode = "n" },
     { "<leader>gp", "<cmd>Git push<CR>",                                        desc = "Git push",                                        mode = "n" },
+    { "<leader>gf", "<cmd>Git push --force-with-lease<CR>",                     desc = "Git force push (safe)",                           mode = "n" },
     { "<leader>gP", "<cmd>Git pull<CR>",                                        desc = "Git pull",                                        mode = "n" },
     { "<leader>gr", "<cmd>Gread<CR>",                                           desc = "Revert buffer to HEAD (discard working changes)", mode = "n" },
     { "<leader>gw", "<cmd>Gwrite<CR>",                                          desc = "Stage current file (write to index)",             mode = "n" },
