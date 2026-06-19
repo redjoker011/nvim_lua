@@ -1,98 +1,85 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects"
-  },
-  build = ":TSUpdate",
-  lazy = vim.fn.argc(-1) == 0,
-  init = function()
-    require("nvim-treesitter.install").prefer_git = true
-    require("nvim-treesitter.query_predicates")
-  end,
-  opts = function()
-    local parser_path = "~/.local/share/nvim/lazy/nvim-treesitter/parser"
-    vim.opt.runtimepath:prepend(parser_path)
-    local treesitter = require 'nvim-treesitter.configs'
+  -- 1. Core Treesitter Parser Manager
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    build = ":TSUpdate",
+    lazy = vim.fn.argc(-1) == 0,
+    init = function()
+      -- Automatically enable syntax highlighting and tree-sitter indents natively
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          pcall(vim.treesitter.start)
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+    end,
+    config = function()
+      local ts = require("nvim-treesitter")
 
-    treesitter.setup(
-      {
-        parser_install_dir = parser_path,
-        ensure_installed = {
-          "bash",
-          "html",
-          "javascript",
-          "json",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "query",
-          "regex",
-          "typescript",
-          "vim",
-          "yaml",
-          'go',
-          'vim',
-          'vimdoc',
-          'ruby',
-          'sql',
-          'css',
-          'scss'
-        },
-        highlight = { enable = true },
-        indent = { enable = true, disable = { 'python', 'vimdoc' } },
-        incremental_selection = {
+      -- Initialize the plugin with your preferred custom path if required
+      ts.setup({
+        install_dir = vim.fn.expand("~/.local/share/nvim/lazy/nvim-treesitter/parser"),
+      })
+
+      -- Modern equivalent to 'ensure_installed' using the new main branch API
+      local ensure_installed = {
+        "bash", "css", "go", "html", "javascript", "json", "lua", "markdown",
+        "markdown_inline", "query", "regex", "ruby", "scss", "sql", "typescript",
+        "vim", "vimdoc", "yaml"
+      }
+
+      local installed = ts.get_installed()
+      local to_install = vim.iter(ensure_installed):filter(function(p)
+        return not vim.tbl_contains(installed, p)
+      end):totable()
+
+      if #to_install > 0 then
+        ts.install(to_install)
+      end
+    end,
+  },
+
+  -- 2. Treesitter Textobjects (Configured independently on main branch)
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        select = {
           enable = true,
+          lookahead = true,
           keymaps = {
-            init_selection = '<c-space>',
-            node_incremental = '<c-space>',
-            scope_incremental = '<c-s>',
-            node_decremental = '<c-backspace>',
+            ["aa"] = "@parameter.outer",
+            ["ia"] = "@parameter.inner",
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
           },
         },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ['aa'] = '@parameter.outer',
-              ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-            },
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            ["]m"] = "@function.outer",
+            ["]]"] = "@class.outer",
           },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              [']m'] = '@function.outer',
-              [']]'] = '@class.outer',
-            },
-            goto_next_end = {
-              [']M'] = '@function.outer',
-              [']['] = '@class.outer',
-            },
-            goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
-            },
-            goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
-            },
+          goto_next_end = {
+            ["]M"] = "@function.outer",
+            ["]["] = "@class.outer",
           },
-          -- swap = {
-          --   enable = true,
-          --   swap_next = {
-          --     ['<leader>a'] = '@parameter.inner',
-          --   },
-          --   swap_previous = {
-          --     ['<leader>A'] = '@parameter.inner',
-          --   },
-          -- },
+          goto_previous_start = {
+            ["[m"] = "@function.outer",
+            ["[["] = "@class.outer",
+          },
+          goto_previous_end = {
+            ["[M"] = "@function.outer",
+            ["[]"] = "@class.outer",
+          },
         },
       })
-  end
+    end,
+  },
 }
