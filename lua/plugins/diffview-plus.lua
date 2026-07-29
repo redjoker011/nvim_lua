@@ -41,7 +41,7 @@ return {
       listing_style = "tree", -- "tree" or "list"
       tree_options = {
         flatten_dirs = true,
-        folder_statuses = "only_used",
+        folder_statuses = "never",
       },
       win_config = {
         position = "left",
@@ -51,13 +51,6 @@ return {
     keymaps = {
       disable_defaults = false,
       -- Custom mappings inside the Diffview panel buffers
-      file_panel = {
-        { "n", "j",    "<cmd>DiffviewNextFile<cr>",     { desc = "Select next file" } },
-        { "n", "k",    "<cmd>DiffviewPrevFile<cr>",     { desc = "Select previous file" } },
-        { "n", "<cr>", "<cmd>DiffviewFocusFiles<cr>",   { desc = "Focus file panel" } },
-        { "n", "s",    "<cmd>DiffviewToggleStaged<cr>", { desc = "Stage / Unstage entry" } },
-        { "n", "R",    "<cmd>DiffviewRefresh<cr>",      { desc = "Update stats and file list" } },
-      },
       file_history_panel = {
         { "n", "gq", "<cmd>DiffviewClose<cr>", { desc = "Close history panel" } },
       },
