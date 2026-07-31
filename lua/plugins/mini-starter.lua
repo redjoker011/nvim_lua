@@ -3,6 +3,15 @@ return {
   config = function()
     local starter = require('mini.starter')
 
+    local focus_top = function(content)
+      vim.schedule(function()
+        if vim.bo.filetype == "ministarter" then
+          vim.api.nvim_win_set_cursor(0, { 1, 0 })
+        end
+      end)
+      return content
+    end
+
     local ascii = {
       "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
       "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
@@ -77,7 +86,8 @@ return {
         starter.gen_hook.indexing('all', { 'Builtin actions' }),
         starter.gen_hook.padding(5, 2),
         -- Center header (1st param) and body sections (2nd param)
-        starter.gen_hook.aligning('center', 'center')
+        starter.gen_hook.aligning('center', 'center'),
+        focus_top
       },
     })
 
