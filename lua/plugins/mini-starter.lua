@@ -3,6 +3,15 @@ return {
   config = function()
     local starter = require('mini.starter')
 
+    local focus_top = function(content)
+      vim.schedule(function()
+        if vim.bo.filetype == "ministarter" then
+          vim.api.nvim_win_set_cursor(0, { 1, 0 })
+        end
+      end)
+      return content
+    end
+
     local ascii = {
       "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
       "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░",
@@ -44,9 +53,28 @@ return {
       return ('Good %s, %s'):format(day_part, username)
     end
 
+    -- Resize Function: Crops height (line range) and width (margin characters)
+    local function resize_ascii(lines, start_line, end_line, side_crop)
+      local result = {}
+      for i = start_line, end_line do
+        local line = lines[i]
+        local len = vim.fn.strchars(line)
+        if side_crop > 0 and len > (side_crop * 2) then
+          line = vim.fn.strcharpart(line, side_crop, len - (side_crop * 2))
+        end
+        table.insert(result, line)
+      end
+      return result
+    end
+
+    -- Adjust these parameters to resize:
+    -- Param 2 & 3: Start and End lines (Height)
+    -- Param 4: Characters to trim from left/right (Width)
+    local resized_ascii = resize_ascii(ascii, 2, 26, 5)
+
     starter.setup({
       evaluate_single = true,
-      header = table.concat(ascii, "\n") .. default_header(),
+      header = table.concat(resized_ascii, "\n") .. "\n\n" .. default_header(),
       items = {
         starter.sections.builtin_actions(),
         starter.sections.recent_files(nil, false),
@@ -57,6 +85,9 @@ return {
         starter.gen_hook.adding_bullet(),
         starter.gen_hook.indexing('all', { 'Builtin actions' }),
         starter.gen_hook.padding(5, 2),
+        -- Center header (1st param) and body sections (2nd param)
+        starter.gen_hook.aligning('center', 'center'),
+        focus_top
       },
     })
 
