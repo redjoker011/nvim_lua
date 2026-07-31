@@ -30,7 +30,7 @@ open neovim and run `:Lazy` command
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 
 ### Theme and Status Line
-- [dracula](https://github.com/maxmx03/dracula.nvim)
+- [dracula](https://github.com/mofiqul/dracula.nvim)
 - [lualine](https://github.com/nvim-lualine/lualine.nvim)
 - [gitsigns](https://github.com/lewis6991/gitsigns.nvim)
 
@@ -48,7 +48,7 @@ open neovim and run `:Lazy` command
 
 ## Key Bindings
 
-### Leader Key 
+### Leader Key
 
 - `,`
 - `<Space\>`
