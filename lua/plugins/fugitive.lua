@@ -6,7 +6,6 @@ return {
   keys = {
     { "<leader>gs", "<cmd>Git<CR>",                                             desc = "Git (run git command)",                           mode = "n" },
     { "<leader>gb", "<cmd>G blame<CR>",                                         desc = "Git blame (interactive split)",                   mode = "n" },
-    { "<leader>gd", "<cmd>Gdiffsplit<CR>",                                      desc = "Git diff (vertical split)",                       mode = "n" },
     { "<leader>gc", "<cmd>Git commit<CR>",                                      desc = "Git commit",                                      mode = "n" },
     { "<leader>gp", "<cmd>Git push<CR>",                                        desc = "Git push",                                        mode = "n" },
     { "<leader>gf", "<cmd>Git push --force-with-lease<CR>",                     desc = "Git force push (safe)",                           mode = "n" },
