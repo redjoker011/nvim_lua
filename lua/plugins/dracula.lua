@@ -1,64 +1,61 @@
 return {
-  {
-    'maxmx03/dracula.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      ---@type dracula
-      local dracula = require "dracula"
+  "Mofiqul/dracula.nvim",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    local dracula = require("dracula")
 
-      dracula.setup({
-        styles = {
-          types = {},
-          functions = {},
-          parameters = {},
-          comments = {},
-          strings = {},
-          keywords = {},
-          variables = {},
-          constants = {},
-        },
-        transparent = false,
-        on_colors = function(colors, color)
-          ---@type dracula.palette
-          return {
-            -- override or create new colors
-            mycolor = "#ffffff",
-          }
-        end,
-        on_highlights = function(colors, color)
-          ---@type dracula.highlights
-          return {
-            ---@type vim.api.keyset.highlight
-            Normal = { fg = colors.mycolor }
-          }
-        end,
-        plugins = {
-          ["nvim-treesitter"] = true,
-          ["rainbow-delimiters"] = true,
-          ["nvim-lspconfig"] = true,
-          ["nvim-navic"] = true,
-          ["nvim-cmp"] = true,
-          ["indent-blankline.nvim"] = true,
-          ["neo-tree.nvim"] = true,
-          ["nvim-tree.lua"] = true,
-          ["which-key.nvim"] = true,
-          ["dashboard-nvim"] = true,
-          ["gitsigns.nvim"] = true,
-          ["neogit"] = true,
-          ["todo-comments.nvim"] = true,
-          ["lazy.nvim"] = true,
-          ["telescope.nvim"] = true,
-          ["noice.nvim"] = true,
-          ["hop.nvim"] = true,
-          ["mini.statusline"] = true,
-          ["mini.tabline"] = true,
-          ["mini.starter"] = true,
-          ["mini.cursorword"] = true,
-          ['bufferline.nvim'] = true,
+    dracula.setup({
+      theme = "dracula",
+      transparent_bg = false,
+      italic_comment = true,
+      show_end_of_buffer = false, -- Clean bottom of buffer (hides ~ tildes)
+
+      -- Custom Palette Adjustments & Visual Polish
+      colors = {
+        bg = "#282A36",
+        fg = "#F8F8F2",
+        selection = "#44475A",
+        comment = "#6272A4",
+        purple = "#BD93F9",
+        cyan = "#8BE9FD",
+        pink = "#FF79C6",
+      },
+
+      -- Custom Highlight Overrides for Modern Neovim UI
+      overrides = function(colors)
+        return {
+          -- 1. Cleaner Window Dividers
+          WinSeparator = { fg = "#44475A", bg = "NONE" },
+
+          -- 2. Floating Windows & Popups (Telescope, LSP Float, Mason)
+          NormalFloat = { bg = "#21222C" },
+          FloatBorder = { fg = colors.purple, bg = "#21222C" },
+          FloatTitle = { fg = colors.cyan, bg = "#21222C", bold = true },
+
+          -- 3. Modern Cursor Line & Line Numbers
+          CursorLine = { bg = "#2B2D3A" },
+          CursorLineNr = { fg = colors.yellow, bold = true },
+          LineNr = { fg = "#6272A4" },
+
+          -- 4. Code Typography & Syntax Enhancements
+          ["@keyword"] = { fg = colors.pink, italic = true },
+          ["@keyword.function"] = { fg = colors.cyan, italic = true },
+          ["@parameter"] = { fg = colors.orange, italic = true },
+          ["@variable.builtin"] = { fg = colors.purple, italic = true },
+          ["@type.builtin"] = { fg = colors.cyan, italic = true },
+
+          -- 5. Visual Mode Selection Contrast
+          Visual = { bg = "#44475A", bold = true },
+
+          -- 6. Git Signs & Telescope Specific Polish
+          TelescopeBorder = { fg = colors.purple, bg = "#21222C" },
+          TelescopePromptBorder = { fg = colors.pink, bg = "#21222C" },
+          TelescopePromptTitle = { fg = colors.pink, bg = "#21222C", bold = true },
         }
-      })
-      vim.cmd.colorscheme 'dracula'
-    end
-  },
+      end,
+    })
+
+    vim.cmd.colorscheme("dracula")
+  end,
 }
