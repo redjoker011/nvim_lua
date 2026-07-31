@@ -37,7 +37,6 @@ return {
 
     local default_header = function()
       local hour = tonumber(vim.fn.strftime('%H'))
-      -- [04:00, 12:00) - morning, [12:00, 20:00) - day, [20:00, 04:00) - evening
       local part_id = math.floor((hour + 4) / 8) + 1
       local day_part = ({ 'evening', 'morning', 'afternoon', 'evening' })[part_id]
       local username = 'Pete!'
@@ -45,7 +44,6 @@ return {
       return ('Good %s, %s'):format(day_part, username)
     end
 
-    -- Configure MiniStarter to look similar to `mhinz/vim-startify`
     starter.setup({
       evaluate_single = true,
       header = table.concat(ascii, "\n") .. default_header(),
@@ -53,7 +51,6 @@ return {
         starter.sections.builtin_actions(),
         starter.sections.recent_files(nil, false),
         starter.sections.recent_files(nil, true),
-        -- Use this if you set up 'mini.sessions'
         starter.sections.sessions(5, true)
       },
       content_hooks = {
@@ -62,5 +59,23 @@ return {
         starter.gen_hook.padding(5, 2),
       },
     })
+
+    -- Highlight styling applied to Dracula theme
+    local set_hl = vim.api.nvim_set_hl
+
+    -- ASCII Meme Banner: Dracula Red (#FF5555) for dramatic rage effect
+    set_hl(0, "MiniStarterHeader", { fg = "#FF5555", bold = true })
+
+    -- Section Headers (e.g., "Builtin actions", "Recent files"): Dracula Cyan
+    set_hl(0, "MiniStarterSection", { fg = "#8BE9FD", bold = true })
+
+    -- Item Key / Index (e.g., [1], [2]): Dracula Pink
+    set_hl(0, "MiniStarterItemPrefix", { fg = "#FF79C6", bold = true })
+
+    -- Action Names: Dracula Purple
+    set_hl(0, "MiniStarterItemBullet", { fg = "#BD93F9" })
+
+    -- Footer / Query Line: Dracula Comment (Muted Purple)
+    set_hl(0, "MiniStarterFooter", { fg = "#6272A4", italic = true })
   end
 }
